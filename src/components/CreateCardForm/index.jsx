@@ -83,9 +83,9 @@ function CreateCardForm() {
           required
         />
 
-        <input onClick={() => setShow(true)} type="submit" value="Send it!" />
-        <Modal onClose={()=> setTimeout} show={show}/>
+        <input onClick={() => setShow(true)} type="submit" value="Send it!" className="input-form" />
       </form>
+      <Modal onClose={()=> setTimeout} show={show}/>
     </div>
   );
 }

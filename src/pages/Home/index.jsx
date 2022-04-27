@@ -1,14 +1,18 @@
 import CardList from "../../components/CardList";
+import { useState } from "react";
 import "./style.css";
 
-function Home(props) {
-
+function Home() {
+const [filter, setFilter] = useState("");
+const change = (e) => {
+  setFilter(e.target.value)
+}
   return (
     <div className="Home">
-      <label htmlFor="search">Search by title or categories:</label>
-      <input type="text" id="search" name="search" />
+      <label htmlFor="search">Search by title or genres:</label>
+      <input value={filter} onChange={change} type="text" id="search" name="search" />
 
-      <CardList/>
+      <CardList filter={filter}/>
     </div>
   );
 }
