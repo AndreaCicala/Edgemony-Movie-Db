@@ -1,0 +1,5 @@
+.CardList__wrapper {
+    display: flex;
+    gap: 10px;
+    flex-flow: row wrap;
+  }
