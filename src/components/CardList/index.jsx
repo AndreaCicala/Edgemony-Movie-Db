@@ -1,40 +1,41 @@
-import { GET } from "../../utils/http";
 import { useState, useEffect } from "react";
+import { GET } from "../../utils/http";
 import CardItem from "../CardItem";
-import "./style.css";
+import styles from "./styles.module.scss";
 
-function CardList(props) {
+function CardList({ filter }) {
   const [moviesData, setMoviesData] = useState([]);
-  const [movieFiltered, setMovieFiltered] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [value, setValue] = useState();
 
   useEffect(() => {
     GET().then((data) => {
       setMoviesData(data);
-      setMovieFiltered(data);
+      setCategories(data);
     });
-    console.log(moviesData)
-  }, []);
+  }, [value]);
 
   useEffect(() => {
-    const filtered = moviesData.filter(
-      (movie) =>
-      movie.title.toLowerCase().includes(props.filter.toLowerCase()) ||
-        movie.genres.forEach((genre) =>
-          genre.toLowerCase().includes(props.filter.toLowerCase())
-        )
-    );
-    setMovieFiltered(filtered);
-    // eslint-disable-next-line
-  }, [props.filter]);
+    const filteredMovie = categories.filter((item) => {
+      return item.genres.toString().toLowerCase().includes(filter.toLowerCase())
+    });
+    setMoviesData(filteredMovie);
+     // eslint-disable-next-line
+  }, [filter])
 
   return (
-    <div className="CardList">
+    <div className={styles.CardList}>
       <h1>Lista dei film</h1>
-      <div className="CardList__wrapper">
-        {movieFiltered &&
-          movieFiltered.map((movie) => (
-            <CardItem cardData={movie} key={movie.id} />
-          ))}
+      <div className={styles.CardList__wrapper}>
+        {moviesData &&
+          moviesData
+            .map((movie) => (
+              <CardItem
+                cardData={movie}
+                onForceRender={setValue}
+                key={movie.id}
+              />
+            ))}
       </div>
     </div>
   );

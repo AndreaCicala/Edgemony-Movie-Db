@@ -1,20 +1,13 @@
-import "./style.css";
+import styles from "./styles.module.scss";
 
-function Modal(props) {
-    if(!props.show){
-        return null
-    }
-
+function Modal({ text, isVisibile }) {
   return (
     <>
-      <div className="modal" >
-        <div className="modal-content">
-          <div className="modal-header">
-            <h4 className="modal-title">Complimenti</h4>
-          </div>
-          <div className="modal-body">Hai aggiunto un nuovo film!</div>
+      {isVisibile && (
+        <div className={styles.Modal}>
+          <p className={styles.Modal__paragraph}>{text}</p>
         </div>
-      </div>
+      )}
     </>
   );
 }
